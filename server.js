@@ -86,7 +86,7 @@ app.post('/tasks', function(req, res) {
 app.put('/tasks/:id', function(req, res){
     var query = {'_id': req.params.id};
 
-    Task.findByIdAndUpdate(query, { title: req.body.title, description: req.body.description, completed: req.body.completed }, {upsert:true, new: true}, function(err, task){
+    Task.findByIdAndUpdate(query, { title: req.body.title, description: req.body.description, completed: req.body.completed }, {upsert: true, new: true}, function(err, task){
         if(err) {
             console.log('Something went wrong, could not update task: '+req.params.id);
             console.log("Returned error", err);
