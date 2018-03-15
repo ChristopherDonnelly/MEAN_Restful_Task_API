@@ -17,7 +17,8 @@ app.use(bodyParser.json());
 var path = require('path');
 
 // Setting our Static Folder Directory
-app.use(express.static(path.join(__dirname, './static')));
+//app.use(express.static(path.join(__dirname, './static')));
+app.use(express.static( __dirname + '/angularApp/dist' ));
 
 // Setting our Views Folder Directory
 app.set('views', path.join(__dirname, './views'));
@@ -34,10 +35,10 @@ var TaskSchema = new mongoose.Schema({
 }, {timestamps: true });
 
 // set our models by passing them their respective Schemas
-mongoose.model('Task', TaskSchema);
+// mongoose.model('Task', TaskSchema);
 
 // store our models in variables
-var Task = mongoose.model('Task');
+var Task = mongoose.model('Task', TaskSchema);
 
 // Routes
 // Root Request
