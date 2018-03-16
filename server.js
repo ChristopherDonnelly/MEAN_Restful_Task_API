@@ -50,7 +50,7 @@ app.get('/tasks', function(req, res) {
             res.json({message: "Error", error: err});
         }else{
             // respond` with JSON
-            res.json({message: "Success", data: tasks});
+            res.json({message: "Success", tasks: tasks});
         }
     });
 });
@@ -63,7 +63,7 @@ app.get('/tasks/:id', function(req, res){
             res.json({message: "Error", error: err});
         } else {
             console.log('Display a task by id!');
-            res.json({message: "Success", data: task});
+            res.json({message: "Success", task: task});
         }
     });
 });
@@ -78,7 +78,7 @@ app.post('/tasks', function(req, res) {
             res.json({message: "Error", error: err});
         } else {
             // respond` with JSON
-            res.json({message: "Success", data: task});
+            res.json({message: "Success", task: task});
         }
     });
 });
@@ -93,7 +93,7 @@ app.put('/tasks/:id', function(req, res){
             res.json({message: "Error", error: err});
         } else {
             console.log(task)
-            res.json({message: "Success", data: task});
+            res.json({message: "Success", task: task});
         }
     });
 });
@@ -106,7 +106,7 @@ app.delete('/tasks/:id', function(req, res){
             res.json({message: "Error", error: err});
         }else{
             console.log('successfully deleted a task!');
-            res.json({message: "Success", data: task});
+            res.json({message: "Success", task: task});
         }
     });
 });

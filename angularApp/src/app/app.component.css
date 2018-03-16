@@ -1,0 +1,23 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#wrapper {
+    width: 970px;
+    margin: 25px auto;
+}
+
+#wrapper h1 {
+    padding: 20px;
+}
+
+#wrapper h2, #wrapper p {
+    padding: 10px;
+}
+
+#wrapper ul {
+    margin-left: 50px;
+}
+
