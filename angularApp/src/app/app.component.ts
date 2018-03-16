@@ -1,6 +1,7 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 
 import { HttpService } from './http.service';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ import { HttpService } from './http.service';
 export class AppComponent implements OnInit {
   tasks = [];
   singleTask: any;
+  getId: any;
 
   constructor(private _httpService: HttpService){}
 
@@ -19,16 +21,18 @@ export class AppComponent implements OnInit {
     this.getAllTasks();
   }
 
-  editTask(){
-    // const value:string = (<HTMLSelectElement>event.srcElement).value;
-    // this.getTask(value);
+  editTask(event, form: NgForm){
+    event.preventDefault();
+    this.singleTask.id = form._directives[0].options;
+    console.log(this.singleTask.id)
+    this.getTask(this.singleTask.id);
   }
 
   getAllTasks(){
     let getAllTasks = this._httpService.getTasks();
     getAllTasks.subscribe(data => {
-      console.log(data.tasks)
-      this.tasks = data.tasks;
+      console.log(data['tasks'])
+      this.tasks = data['tasks'];
     });
   }
 
@@ -38,29 +42,44 @@ export class AppComponent implements OnInit {
 
     getTaskById.subscribe(data => {
       console.log("Got a task!", data);
-      this.singleTask.title = data.task[0].title;
-      this.singleTask.description = data.task[0].description;
+      this.singleTask.title = data['task'][0].title;
+      this.singleTask.description = data['task'][0].description;
     });
   }
 
-  createTask(){
-    console.log(this.singleTask.title)
-    console.log(this.singleTask.description)
+  createTask(e){
+    e.preventDefault();
+    let createNewTask = this._httpService.createTask(this.singleTask.title, this.singleTask.description);
+    createNewTask.subscribe(data => {
+      console.log("Created new tasks!", data);
+      this.tasks.push(data['task']);
 
-    // let createNewTask = this._httpService.createTask(title, description);
-    // createNewTask.subscribe(data => console.log("Created new tasks!", data));
+      this.singleTask = { id: "", title: "", description: "", completed: false };
+    });
   }
 
-  updateTask(id, title, description, completed?: false){
-    let updateTaskById = this._httpService.updateTask(id, title, description, completed);
-    updateTaskById.subscribe(data => console.log("Update task!", data));
+  updateTask(e){
+    e.preventDefault();
+    let updateTaskById = this._httpService.updateTask(this.singleTask.id, this.singleTask.title, this.singleTask.description, this.singleTask.completed);
+    updateTaskById.subscribe(data => {
+      console.log("Update task!", data);
+
+      this.singleTask = { id: "", title: "", description: "", completed: false };
+      this.getAllTasks();
+    });
   }
 
-  deleteTask(){
+  deleteTask($event, form){
+    event.preventDefault();
+    this.singleTask.deleting = true;
+    this.singleTask.id = form._directives[0].options;
     console.log(this.singleTask.id)
-    // this.singleTask.id = id;
-    // return this._http.delete('/tasks/5aa965e92002bf22cc4550f9');
-    // let deleteTaskById = this._httpService.deleteTask(id);
-    // deleteTaskById.subscribe(data => console.log("Deleted a task!", data));
+    let deleteTaskById = this._httpService.deleteTask(this.singleTask.id);
+    deleteTaskById.subscribe(data => {
+      console.log("Deleted a task!", data);
+
+      this.singleTask = { id: "", title: "", description: "", completed: false, deleting: false };
+      this.getAllTasks();
+    });
   }
 }

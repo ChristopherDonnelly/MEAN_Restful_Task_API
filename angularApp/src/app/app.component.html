@@ -1,58 +1,55 @@
 <div id="wrapper">
-	<div style="text-align:center">
-	  <h1>Restful Tasks CRUD</h1>
-  </div>
-  <h2>New Task:</h2>
-  <form (submit)="createTask()">
-    <div class="label_wrapper">
+	<h1>Restful Tasks CRUD</h1>
+
+
+  <div id="new_task" *ngIf="!singleTask.id">
+    <h2>New Task:</h2>
+    <form (submit)="createTask($event)">
       <label for="singleTask.title">Title: 
         <input type="text" name="singleTask.title" [(ngModel)]="singleTask.title" placeholder="Enter Task Title"></label>
       <label for="singleTask.description">Description: 
-        <!-- <input type="text" name="singleTask.description" [(ngModel)]="singleTask.description" placeholder="Enter Task Description"> -->
         <textarea name="singleTask.description" [(ngModel)]="singleTask.description" placeholder="Enter Task Description"></textarea></label>
-    </div>
-    <div class="button_layer">
-      <input type="submit" value="Create Task" />
-    </div>
-  </form>
+     
+      <div class="button_layer">
+        <input type="submit" value="Create Task" />
+      </div>
+    </form>
+  </div>
 
-  <div id="left_layer">
+  <div id="edit_layer" *ngIf="singleTask.id && !singleTask.deleting">
+    <h2>Edit Task: </h2>
+    <form (submit)="updateTask($event)">
+      <input type="text" name="singleTask.id" [(ngModel)]="singleTask.id" [value]="singleTask.id" class="hidden">
+      <label for="singleTask.title">Title: 
+        <input type="text" name="singleTask.title" [(ngModel)]="singleTask.title" [value]="singleTask.title" placeholder="Update Task Title"></label>
+      <label for="singleTask.description">Description: 
+        <textarea name="singleTask.description" [(ngModel)]="singleTask.description" [value]="singleTask.description" placeholder="Update Task Description"></textarea></label>
+
+      <div class="button_layer">
+        <input type="submit" value="Edit Task" />
+        <input type="reset" value="Cancel" />
+      </div>
+    </form>
+  </div>
+
+  <div id="tasks_list">
     <h2>Task List: </h2>
     <div id="task_layer" *ngIf="tasks.length">
-      <div class="task_card" *ngFor="let task of tasks">
+      <div class="task_card" *ngFor="let task of tasks.reverse()">
         <div class="card_item">
           <h3>{{task.title}}</h3>
           <p>{{task.description}}</p>
         </div>
         <div class="actions_layer">
-          <form (submit)="editTask()">
-              <input type="hidden" [value]="task._id">
+          <form #form="ngForm" (submit)="editTask($event, form)">
+              <input type="hidden" name="getId" ngModel [ngModelOptions]="task._id" [value]="task._id">
               <input type="submit" value="Edit" />
           </form>
-          <form (submit)="deleteTask()">
-              <input type="hidden" [value]="task._id" name="singleTask.id" [(ngModel)]="singleTask.id">
+          <form #form="ngForm" (submit)="deleteTask($event, form)">
+              <input type="hidden" name="getId" ngModel [ngModelOptions]="task._id" [value]="task._id">
               <input type="submit" value="Delete" />
           </form>
         </div>
-      </div>
-    </div>
-  </div>
-  <div id="right_layer">
-    <div id="edit_layer">
-      <h2>Edit Task: </h2>
-      <div id="edit_task">
-        <form (submit)="updateTask()">
-            <div class="label_wrapper">
-              <label for="singleTask.title">Title: 
-                <input type="text" name="singleTask.title" [(ngModel)]="singleTask.title" placeholder="Enter Task Title"></label>
-              <label for="singleTask.description">Description: 
-                <!-- <input type="text" name="singleTask.description" [(ngModel)]="singleTask.description" placeholder="Enter Task Description"> -->
-                <textarea name="singleTask.description" [(ngModel)]="singleTask.description" placeholder="Enter Task Description"></textarea></label>
-            </div>
-            <div class="button_layer">
-              <input type="submit" value="Edit Task" />
-            </div>
-          </form>
       </div>
     </div>
   </div>

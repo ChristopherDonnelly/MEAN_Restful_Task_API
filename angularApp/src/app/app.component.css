@@ -4,9 +4,64 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-#wrapper {
+/* #wrapper {
     width: 970px;
     margin: 25px auto;
+}
+#wrapper h1 {
+    text-align: center;
+} */
+
+#wrapper {
+    display: flex;  
+    flex-flow: row wrap;
+    font-weight: bold;
+    text-align: center;
+}
+
+#wrapper > * {
+    padding: 10px;
+    flex: 1 100%;
+}
+
+@media all and (max-width: 500px) {
+    #wrapper {
+        /* On small screens, we are no longer using row direction but column */
+        flex-direction: column;
+    }
+}
+
+@media all and (max-width: 550px) {
+    #wrapper #new_task { min-width: 550px; } 
+    #wrapper #edit_layer { min-width: 550px; }
+    #wrapper #tasks_list { min-width: 550px; }
+    #wrapper #task_layer { min-width: 550px; }
+}
+
+@media all and (min-width: 600px) {
+    #wrapper #new_task { flex: 1 auto; } 
+    #wrapper #edit_layer { flex: 1 auto; }
+    #wrapper #tasks_list { order: 3; }
+    #wrapper #task_layer { height: 300px; }
+}
+  
+@media all and (min-width: 1000px) {
+    #wrapper #new_task { flex: 3 0px; } 
+    #wrapper #edit_layer { flex: 3 0px; }
+    #wrapper #tasks_list { flex: 3 0px; }
+    #wrapper #task_layer { height: 650px !important; }
+}
+  
+body {
+    padding: 2em; 
+}
+
+#wrapper #new_task {
+    max-width: 570px;
+}
+
+#wrapper #new_task, #wrapper #edit_layer, #wrapper #tasks_list {
+    text-align: left;
 }
 
 #wrapper form {
@@ -15,27 +70,21 @@
     padding-bottom: 20px;
 }
 
-#wrapper .label_wrapper {
-    display: inline-block;
-    vertical-align: bottom;
-}
-
 #wrapper .button_layer {
-    display: inline-block;
+    text-align: right;
 }
 
-#wrapper .button_layer input[type="submit"] {
+#wrapper .button_layer input[type="submit"]#wrapper .button_layer input[type="reset"] {
     margin: 10px 30px;
 }
 
-#wrapper #left_layer, #wrapper #right_layer {
+#wrapper #tasks_list {
     display: inline-block;
     vertical-align: top;
     width: 49%;
 }
 
 #wrapper #task_layer {
-    padding: 10px;
     overflow-y: auto;
     height: 300px;
 }
@@ -68,7 +117,7 @@
     vertical-align: top;
 }
 
-#wrapper button, #wrapper input[type="submit"] {
+#wrapper button, #wrapper input[type="submit"], #wrapper input[type="reset"] {
     width: 100px;
     height: 30px;
     margin: 20px 0px;
@@ -110,6 +159,6 @@
     text-align: right;
 }
 
-#wrapper #edit_task .button_layer input[type="submit"] {
-    margin: 10px 0px !important;
+.hidden {
+    display: none;
 }
