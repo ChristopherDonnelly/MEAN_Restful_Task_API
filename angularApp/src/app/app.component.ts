@@ -10,10 +10,20 @@ import { HttpService } from './http.service';
 
 export class AppComponent implements OnInit {
   tasks = [];
+  singleTask: any;
 
   constructor(private _httpService: HttpService){}
 
-  ngOnInit(){
+  ngOnInit() {
+    this.singleTask = { id: "", title: "", description: "" }
+  }
+
+  testMe(e){
+    const value:string = (<HTMLSelectElement>event.srcElement).value;
+    this.getTask(value);
+  }
+
+  getAllTasks(){
     let getAllTasks = this._httpService.getTasks();
     getAllTasks.subscribe(data => {
       console.log(data.tasks)
@@ -22,9 +32,14 @@ export class AppComponent implements OnInit {
   }
 
   getTask(id){
-    id = '5aa965e92002bf22cc4550f9'
-    let getTaskById = this._httpService.getTask(id);
-    getTaskById.subscribe(data => console.log("Got a task!", data));
+    this.singleTask.id = id;
+    let getTaskById = this._httpService.getTask(this.singleTask.id);
+
+    getTaskById.subscribe(data => {
+      console.log("Got a task!", data);
+      this.singleTask.title = data.task[0].title;
+      this.singleTask.description = data.task[0].description;
+    });
   }
 
   createTask(title, description?){

@@ -17,7 +17,18 @@
     padding: 10px;
 }
 
+#wrapper input {
+    height: 26px;
+    padding: 0px 5px;
+}
+
+#wrapper button, #wrapper input[type="submit"] {
+    width: 100px;
+    height: 30px;
+    margin: 20px 0px;
+    cursor: pointer;
+}
 #wrapper ul {
-    margin-left: 50px;
+    margin: 20px 50px;
 }
 

@@ -2,14 +2,22 @@
 	<div style="text-align:center">
 	  <h1>Restful Tasks API</h1>
 	</div>
-	<h2>All the tasks: </h2>
-	<ul>
-	  <li *ngFor="let task of tasks">{{task.title}} - {{task.description}}</li>
-  </ul>
-  <div id="third_task" *ngIf="tasks[2] !== undefined">
-    <h2>The third task: </h2>
+  <button (click) = "getAllTasks()">Get all tasks</button>
+  <div id="task_layer" *ngIf="tasks.length">
     <ul>
-      <li>{{tasks[2].title}} - {{tasks[2].description}}</li>
+      <li *ngFor="let task of tasks">{{task.title}} - {{task.description}}</li>
+    </ul>
+    <!-- <form (submit)="getTask()">
+      <input type="text" name="singleTask.id" [(ngModel)]="singleTask.id" placeholder="Enter Task ID">
+      <input type="submit" value="Get Task" />
+    </form> -->
+    <select (change) = "testMe($event)">
+      <option value="" disabled selected hidden>Select your task</option>
+      <option *ngFor="let task of tasks" [value]="task._id">{{task.title}}</option>
+    </select>
+
+    <ul *ngIf="singleTask.title !== ''">
+      <li>{{singleTask.title}} - {{singleTask.description}}</li>
     </ul>
   </div>
 </div>
