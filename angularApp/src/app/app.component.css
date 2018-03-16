@@ -9,6 +9,43 @@
     margin: 25px auto;
 }
 
+#wrapper form {
+    text-align: left;
+    width: 100%;
+    padding-bottom: 20px;
+}
+
+#wrapper .label_wrapper {
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+#wrapper .button_layer {
+    display: inline-block;
+}
+
+#wrapper .button_layer input[type="submit"] {
+    margin: 10px 30px;
+}
+
+#wrapper #left_layer, #wrapper #right_layer {
+    display: inline-block;
+    vertical-align: top;
+    width: 49%;
+}
+
+#wrapper #task_layer {
+    padding: 10px;
+    overflow-y: auto;
+    height: 300px;
+}
+
+#wrapper label {
+    text-align: right;
+    display: block;
+    margin: 10px 0px;
+}
+
 #wrapper h1 {
     padding: 20px;
 }
@@ -19,7 +56,16 @@
 
 #wrapper input {
     height: 26px;
+    width: 359px;
     padding: 0px 5px;
+    vertical-align: top;
+}
+
+#wrapper textarea {
+    width: 350px;
+    height: 100px;
+    padding: 10px;
+    vertical-align: top;
 }
 
 #wrapper button, #wrapper input[type="submit"] {
@@ -32,3 +78,38 @@
     margin: 20px 50px;
 }
 
+.task_card {
+    border: 1px solid black;
+    background-color: #f5f5f5;
+    margin: 10px;
+    padding: 10px;
+}
+
+.card_item {
+    display: inline-block;
+    vertical-align: top;
+    width: 70%;
+}
+
+.actions_layer {
+    display: inline-block;
+    vertical-align: top;
+    width: 25%;
+    padding-left: 10px;
+}
+
+.actions_layer form {
+    padding-bottom: 0px !important;
+}
+
+.actions_layer form input[type="submit"] {
+    margin: 5px 0px !important;
+}
+
+#wrapper #edit_task form {
+    text-align: right;
+}
+
+#wrapper #edit_task .button_layer input[type="submit"] {
+    margin: 10px 0px !important;
+}

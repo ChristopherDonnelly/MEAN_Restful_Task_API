@@ -1,23 +1,72 @@
 <div id="wrapper">
 	<div style="text-align:center">
-	  <h1>Restful Tasks API</h1>
-	</div>
-  <button (click) = "getAllTasks()">Get all tasks</button>
-  <div id="task_layer" *ngIf="tasks.length">
-    <ul>
-      <li *ngFor="let task of tasks">{{task.title}} - {{task.description}}</li>
-    </ul>
-    <!-- <form (submit)="getTask()">
-      <input type="text" name="singleTask.id" [(ngModel)]="singleTask.id" placeholder="Enter Task ID">
-      <input type="submit" value="Get Task" />
-    </form> -->
-    <select (change) = "testMe($event)">
-      <option value="" disabled selected hidden>Select your task</option>
-      <option *ngFor="let task of tasks" [value]="task._id">{{task.title}}</option>
-    </select>
+	  <h1>Restful Tasks CRUD</h1>
+  </div>
+  <h2>New Task:</h2>
+  <form (submit)="createTask()">
+    <div class="label_wrapper">
+      <label for="singleTask.title">Title: 
+        <input type="text" name="singleTask.title" [(ngModel)]="singleTask.title" placeholder="Enter Task Title"></label>
+      <label for="singleTask.description">Description: 
+        <!-- <input type="text" name="singleTask.description" [(ngModel)]="singleTask.description" placeholder="Enter Task Description"> -->
+        <textarea name="singleTask.description" [(ngModel)]="singleTask.description" placeholder="Enter Task Description"></textarea></label>
+    </div>
+    <div class="button_layer">
+      <input type="submit" value="Create Task" />
+    </div>
+  </form>
 
-    <ul *ngIf="singleTask.title !== ''">
-      <li>{{singleTask.title}} - {{singleTask.description}}</li>
-    </ul>
+  <div id="left_layer">
+    <h2>Task List: </h2>
+    <div id="task_layer" *ngIf="tasks.length">
+      <div class="task_card" *ngFor="let task of tasks">
+        <div class="card_item">
+          <h3>{{task.title}}</h3>
+          <p>{{task.description}}</p>
+        </div>
+        <div class="actions_layer">
+          <form (submit)="editTask()">
+              <input type="hidden" [value]="task._id">
+              <input type="submit" value="Edit" />
+          </form>
+          <form (submit)="deleteTask()">
+              <input type="hidden" [value]="task._id" name="singleTask.id" [(ngModel)]="singleTask.id">
+              <input type="submit" value="Delete" />
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="right_layer">
+    <div id="edit_layer">
+      <h2>Edit Task: </h2>
+      <div id="edit_task">
+        <form (submit)="updateTask()">
+            <div class="label_wrapper">
+              <label for="singleTask.title">Title: 
+                <input type="text" name="singleTask.title" [(ngModel)]="singleTask.title" placeholder="Enter Task Title"></label>
+              <label for="singleTask.description">Description: 
+                <!-- <input type="text" name="singleTask.description" [(ngModel)]="singleTask.description" placeholder="Enter Task Description"> -->
+                <textarea name="singleTask.description" [(ngModel)]="singleTask.description" placeholder="Enter Task Description"></textarea></label>
+            </div>
+            <div class="button_layer">
+              <input type="submit" value="Edit Task" />
+            </div>
+          </form>
+      </div>
+    </div>
   </div>
 </div>
+
+<!-- <form (submit)="getTask()">
+  <input type="text" name="singleTask.id" [(ngModel)]="singleTask.id" placeholder="Enter Task ID">
+  <input type="submit" value="Get Task" />
+</form>
+<select (change) = "testMe($event)">
+  <option value="" disabled selected hidden>Select your task</option>
+  <option *ngFor="let task of tasks" [value]="task._id">{{task.title}}</option>
+</select>
+
+<ul *ngIf="singleTask.title !== ''">
+  <li>{{singleTask.title}} - {{singleTask.description}}</li>
+</ul> -->

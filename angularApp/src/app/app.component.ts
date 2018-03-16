@@ -15,12 +15,13 @@ export class AppComponent implements OnInit {
   constructor(private _httpService: HttpService){}
 
   ngOnInit() {
-    this.singleTask = { id: "", title: "", description: "" }
+    this.singleTask = { id: "", title: "", description: "", completed: false };
+    this.getAllTasks();
   }
 
-  testMe(e){
-    const value:string = (<HTMLSelectElement>event.srcElement).value;
-    this.getTask(value);
+  editTask(){
+    // const value:string = (<HTMLSelectElement>event.srcElement).value;
+    // this.getTask(value);
   }
 
   getAllTasks(){
@@ -42,9 +43,12 @@ export class AppComponent implements OnInit {
     });
   }
 
-  createTask(title, description?){
-    let createNewTask = this._httpService.createTask(title, description);
-    createNewTask.subscribe(data => console.log("Created new tasks!", data));
+  createTask(){
+    console.log(this.singleTask.title)
+    console.log(this.singleTask.description)
+
+    // let createNewTask = this._httpService.createTask(title, description);
+    // createNewTask.subscribe(data => console.log("Created new tasks!", data));
   }
 
   updateTask(id, title, description, completed?: false){
@@ -52,9 +56,11 @@ export class AppComponent implements OnInit {
     updateTaskById.subscribe(data => console.log("Update task!", data));
   }
 
-  deleteTask(id){
+  deleteTask(){
+    console.log(this.singleTask.id)
+    // this.singleTask.id = id;
     // return this._http.delete('/tasks/5aa965e92002bf22cc4550f9');
-    let deleteTaskById = this._httpService.deleteTask(id);
-    deleteTaskById.subscribe(data => console.log("Deleted a task!", data));
+    // let deleteTaskById = this._httpService.deleteTask(id);
+    // deleteTaskById.subscribe(data => console.log("Deleted a task!", data));
   }
 }
